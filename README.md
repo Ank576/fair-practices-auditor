@@ -2,7 +2,7 @@
 
 This repo is a Streamlit web app that validates loan terms against RBI Fair Practices Code using a Perplexity Sonar model. It takes loan parameters (principal, processing fee, prepayment penalty) and returns a compliance decision with real-time regulatory citations and reasoning.
 
-Live demo: [DEMO](https://fair-practices-auditor.streamlit.app/)
+Live demo: [DEMO-CLICK](https://fair-practices-auditor-dzvt2uid5mjeq9v8qizr8h.streamlit.app/)
 
 > Note: This is a prototype for product exploration and learning. It does NOT provide legal advice, regulatory consultation, or official RBI compliance certification.
 
