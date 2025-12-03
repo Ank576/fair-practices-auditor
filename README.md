@@ -202,7 +202,7 @@ This is a learning/portfolio project. Feel free to fork and adapt for your use c
 For suggestions or issues:
 1. Open a GitHub issue
 2. Submit a pull request
-3. Connect via [LinkedIn](https://linkedin.com/in/ankitsaxena576)
+3. Connect via [LinkedIn](https://linkedin.com/in/ankit-product)
 
 ---
 
@@ -221,7 +221,7 @@ For suggestions or issues:
 
 ## 👨‍💻 About
 
-Built with 🧡 by [Ankit Saxena](https://github.com/Ank576)
+Built with love 💙 by [Ankit Saxena](https://github.com/Ank576)
 
 **Product Manager | Fintech Enthusiast | LLM Explorer**
 
