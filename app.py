@@ -1,13 +1,7 @@
 import streamlit as st
 import json
 from openai import OpenAI
-import os
 import re
-
-client = OpenAI(
-    api_key=os.getenv("PERPLEXITY_API_KEY"),
-    base_url="https://api.perplexity.ai"
-)
 
 st.set_page_config(page_title="RBI Fair Practices Auditor", layout="centered")
 st.title("🏦 RBI Fair Practices Auditor")
@@ -41,6 +35,25 @@ prepayment_penalty_pct = st.number_input(
 )
 
 if st.button("Audit Loan Terms", type="primary", use_container_width=True):
+    # Check for API key
+    api_key = st.secrets.get("PERPLEXITY_API_KEY", None)
+    
+    if not api_key:
+        st.error("⚠️ PERPLEXITY_API_KEY not found in Streamlit secrets!")
+        st.info("""**Setup Instructions:**
+        1. Go to your Streamlit Cloud app settings
+        2. Navigate to 'Secrets' section
+        3. Add: `PERPLEXITY_API_KEY = "pplx-your-key-here"`
+        4. Get your key from: https://www.perplexity.ai/settings/api
+        """)
+        st.stop()
+    
+    # Initialize client only when needed
+    client = OpenAI(
+        api_key=api_key,
+        base_url="https://api.perplexity.ai"
+    )
+    
     with st.spinner("Checking RBI compliance..."):
         prompt = f"""You are an RBI Fair Practices Code compliance auditor for loan terms.
 
@@ -76,7 +89,7 @@ Return ONLY valid JSON (no markdown, no code blocks):
             raw = response.choices[0].message.content.strip()
             
             # Clean markdown
-            raw = re.sub(r'``````', '', raw)
+            raw = re.sub(r'```json\s*|\s*```', '', raw)
             
             # Extract JSON
             json_match = re.search(r'\{.*\}', raw, re.DOTALL)
@@ -135,7 +148,7 @@ Return ONLY valid JSON (no markdown, no code blocks):
             st.code(json_str if 'json_str' in locals() else raw)
         except Exception as e:
             st.error(f"API Error: {str(e)}")
-            st.info("Set PERPLEXITY_API_KEY in Streamlit secrets or environment variable")
+            st.info("Set PERPLEXITY_API_KEY in Streamlit secrets")
 
 st.markdown("---")
 st.caption("**Disclaimer**: Demo only. Verify with RBI guidelines. Built with 🧡 by Ankit Saxena")
